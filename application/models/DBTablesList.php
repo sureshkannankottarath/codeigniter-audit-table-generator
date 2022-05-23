@@ -33,12 +33,12 @@ class DBTablesList extends CI_Model
      */
     public function countAll($postData)
     {
-
+        $db_name = $this->db->database;
 
         $this->db->select('tb.table_name')
             ->from('information_schema.tables tb')
-            ->join('codeigniter_audit_table_generator_demo_db.audit_tables_history ath', 'tb.table_name = ath.parent_table', 'LEFT')
-            ->where('tb.table_schema', 'codeigniter_audit_table_generator_demo_db')
+            ->join($db_name.'.audit_tables_history ath', 'tb.table_name = ath.parent_table', 'LEFT')
+            ->where('tb.table_schema', $db_name)
             ->where('ath.parent_table', null)
             ->not_like('tb.table_name', 'audit_', 'both');
 
@@ -63,20 +63,22 @@ class DBTablesList extends CI_Model
     private function _get_datatables_query($postData)
     {
 
+        $db_name = $this->db->database;
+
 
         if ($postData['search']['value']) {
             $this->db->select('tb.table_name')
             ->from('information_schema.tables tb')
-            ->join('codeigniter_audit_table_generator_demo_db.audit_tables_history ath', 'tb.table_name = ath.parent_table', 'LEFT')
-            ->where('tb.table_schema', 'codeigniter_audit_table_generator_demo_db')
+            ->join($db_name.'.audit_tables_history ath', 'tb.table_name = ath.parent_table', 'LEFT')
+            ->where('tb.table_schema', $db_name)
             ->where('ath.parent_table', null)
             ->not_like('tb.table_name', 'audit_', 'both')
             ->like('tb.table_name', $postData['search']['value'], 'tb');
         } else {
             $this->db->select('tb.table_name')
             ->from('information_schema.tables tb')
-            ->join('codeigniter_audit_table_generator_demo_db.audit_tables_history ath', 'tb.table_name = ath.parent_table', 'LEFT')
-            ->where('tb.table_schema', 'codeigniter_audit_table_generator_demo_db')
+            ->join($db_name.'.audit_tables_history ath', 'tb.table_name = ath.parent_table', 'LEFT')
+            ->where('tb.table_schema', $db_name)
             ->where('ath.parent_table', null)
             ->not_like('tb.table_name', 'audit_', 'both');
         }
