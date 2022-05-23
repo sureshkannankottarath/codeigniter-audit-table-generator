@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '94.237.64.255',
-	'username' => 'fkdev',
-	'password' => 'F!~eKuBe@2022F',
-	'database' => 'microhealthcare__rtpcr',
+	'hostname' => 'db_hostname',
+	'username' => 'db_username',
+	'password' => 'db_password',
+	'database' => 'db_name',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
