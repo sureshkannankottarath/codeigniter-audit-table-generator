@@ -8,6 +8,8 @@ class DBTablesList extends CI_Model
     {
         // Set table name
         $this->table = 'information_schema.tables';
+        // Set database name
+        $this->user_db = $this->db->database;
         // Set orderable column fields
         $this->column_order = array(null);
         // Set default order
@@ -33,13 +35,13 @@ class DBTablesList extends CI_Model
      */
     public function countAll($postData)
     {
-        $db_name = $this->db->database;
 
         $this->db->select('tb.table_name')
             ->from('information_schema.tables tb')
-            ->join($db_name.'.audit_tables_history ath', 'tb.table_name = ath.parent_table', 'LEFT')
-            ->where('tb.table_schema', $db_name)
+            ->join($this->user_db.'.audit_tables_history ath', 'tb.table_name = ath.parent_table', 'LEFT')
+            ->where('tb.table_schema', $this->user_db)
             ->where('ath.parent_table', null)
+            ->where('tb.table_type', 'BASE TABLE')
             ->not_like('tb.table_name', 'audit_', 'both');
 
         return $this->db->count_all_results();
@@ -63,23 +65,23 @@ class DBTablesList extends CI_Model
     private function _get_datatables_query($postData)
     {
 
-        $db_name = $this->db->database;
-
 
         if ($postData['search']['value']) {
             $this->db->select('tb.table_name')
             ->from('information_schema.tables tb')
-            ->join($db_name.'.audit_tables_history ath', 'tb.table_name = ath.parent_table', 'LEFT')
-            ->where('tb.table_schema', $db_name)
+            ->join($this->user_db.'.audit_tables_history ath', 'tb.table_name = ath.parent_table', 'LEFT')
+            ->where('tb.table_schema', $this->user_db)
             ->where('ath.parent_table', null)
+            ->where('tb.table_type', 'BASE TABLE')
             ->not_like('tb.table_name', 'audit_', 'both')
             ->like('tb.table_name', $postData['search']['value'], 'tb');
         } else {
             $this->db->select('tb.table_name')
             ->from('information_schema.tables tb')
-            ->join($db_name.'.audit_tables_history ath', 'tb.table_name = ath.parent_table', 'LEFT')
-            ->where('tb.table_schema', $db_name)
+            ->join($this->user_db.'.audit_tables_history ath', 'tb.table_name = ath.parent_table', 'LEFT')
+            ->where('tb.table_schema', $this->user_db)
             ->where('ath.parent_table', null)
+            ->where('tb.table_type', 'BASE TABLE')
             ->not_like('tb.table_name', 'audit_', 'both');
         }
 

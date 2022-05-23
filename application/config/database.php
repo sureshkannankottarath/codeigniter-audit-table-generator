@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => 'SK369',
-	'database' => 'codeigniter_audit_table_generator_demo_db',
+	'hostname' => '94.237.64.255',
+	'username' => 'fkdev',
+	'password' => 'F!~eKuBe@2022F',
+	'database' => 'microhealthcare__rtpcr',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

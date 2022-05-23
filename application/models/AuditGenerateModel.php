@@ -23,7 +23,7 @@ class AuditGenerateModel extends CI_Model
 
         //creating audit table from origin
         $this->db->query('CREATE TABLE audit_' . $table_name . '(SELECT * FROM ' . $table_name . ' WHERE 0=1)');
-        $res = $this->db->query("SELECT k.column_name
+        $res = $this->db->query("SELECT k.COLUMN_NAME
         FROM information_schema.table_constraints t
         JOIN information_schema.key_column_usage k
         USING(constraint_name,table_schema,table_name)
@@ -32,7 +32,7 @@ class AuditGenerateModel extends CI_Model
           AND t.table_name='" . $table_name . "'");
 
         //get primary key column name
-        $primary_key = $res->result_array()[0]['column_name'];
+        $primary_key = $res->result_array()[0]['COLUMN_NAME'];
 
         //alerting audit table
         $this->db->query("ALTER TABLE audit_" . $table_name . " 

@@ -35,7 +35,7 @@ class AuditTableGenerate extends CI_Controller
 
         $i = $_POST['start'];
         foreach ($tablesList as $table) {
-            $table_name = $table->table_name;
+            $table_name = $table->TABLE_NAME;
             $i++;
 
             $table_Val = $table_name . '<input type="hidden" name="table_name[]" value="' . $table_name . '">';
